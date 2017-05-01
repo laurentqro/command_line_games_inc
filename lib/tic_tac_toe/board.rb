@@ -1,4 +1,5 @@
 require 'tic_tac_toe/errors/illegal_move_error'
+require 'tic_tac_toe/errors/invalid_input_error'
 
 class Board
   attr_accessor :grid
@@ -31,10 +32,18 @@ class Board
   end
 
   def mark(spot, mark, is_reset: false)
-    if is_reset || available_spaces.include?(spot.to_s)
-      grid[spot] = mark
-    else
+    if is_reset || available_spaces.include?(spot)
+      grid[spot.to_i] = mark
+    elsif invalid?(spot)
+      raise InvalidInputError.new(spot)
+    elsif !available_spaces.include?(spot)
       raise IllegalMoveError.new(spot)
     end
+  end
+
+  private
+
+  def invalid?(input)
+    input.length > 1 || input.to_i > 8
   end
 end

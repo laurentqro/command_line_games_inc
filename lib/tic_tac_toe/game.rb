@@ -23,21 +23,16 @@ class Game
     puts notify_game_over
   end
 
-  def prompt_player_input
-    puts "Enter [0-8]:"
-  end
-
-  def notify_game_over
-    puts "Game over"
-  end
-
   def get_human_spot
     spot = nil
     until spot
       spot = get_input
-      if available_spaces.include?(spot.to_s)
+      begin
         board.mark(spot, @hum)
-      else
+      rescue IllegalMoveError, InvalidInputError => e
+        puts e.message
+        print_board
+        prompt_player_input
         spot = nil
       end
     end
@@ -47,7 +42,7 @@ class Game
     spot = nil
     until spot
       if board.grid[4] == "4"
-        spot = 4
+        spot = "4"
         board.mark(spot, @com)
       else
         spot = get_best_move
@@ -60,28 +55,28 @@ class Game
     best_move = nil
 
     available_spaces.each do |as|
-      board.mark(as.to_i, @com)
+      board.mark(as, @com)
       # if can win with next move, play that
       if is_over?
-        best_move = as.to_i
-        board.mark(as.to_i, as, is_reset: true)
+        best_move = as
+        board.mark(as, as, is_reset: true)
         return best_move
       else
         # block human winning with next move
-        board.mark(as.to_i, as, is_reset: true)
-        board.mark(as.to_i, @hum)
+        board.mark(as, as, is_reset: true)
+        board.mark(as, @hum)
         if is_over?
-          best_move = as.to_i
-          board.mark(as.to_i, as, is_reset: true)
+          best_move = as
+          board.mark(as, as, is_reset: true)
           return best_move
         else
-          board.mark(as.to_i, as, is_reset: true)
+          board.mark(as, as, is_reset: true)
         end
       end
     end
 
     n = rand(0..available_spaces.count)
-    return available_spaces[n].to_i
+    return available_spaces[n]
   end
 
   private
@@ -91,14 +86,22 @@ class Game
   end
 
   def get_input
-    gets.chomp.to_i
+    gets.chomp
   end
 
   def available_spaces
     board.available_spaces
   end
 
+  def prompt_player_input
+    puts "Enter [0-8]:"
+  end
+
   def print_board
     board.print_grid
+  end
+
+  def notify_game_over
+    puts "Game over"
   end
 end

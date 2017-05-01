@@ -36,7 +36,7 @@ describe Board do
   describe "#mark" do
     it "marks spot with mark" do
       board = Board.new
-      board.mark(0, "X")
+      board.mark("0", "X")
 
       expect(board.grid).to eql ["X", "1", "2", "3", "4", "5", "6", "7", "8"]
     end
@@ -45,7 +45,11 @@ describe Board do
       grid = ["X", "1", "2", "3", "4", "5", "6", "7", "8"]
       board = Board.new(grid: grid)
 
-      expect { board.mark(0, "X") }.to raise_error(IllegalMoveError)
+      expect { board.mark("0", "X") }.to raise_error(IllegalMoveError)
+    end
+
+    it "raises an error if user input is invalid" do
+      expect { Board.new.mark("gibberish", "O") }.to raise_error(InvalidInputError)
     end
   end
 end
