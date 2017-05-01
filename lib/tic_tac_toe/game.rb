@@ -64,14 +64,7 @@ class Game
   end
 
   def get_best_move(board, depth = 0, best_score = {})
-    available_spaces = []
     best_move = nil
-
-    board.each do |space|
-      if space != "X" && space != "O"
-        available_spaces << space
-      end
-    end
 
     available_spaces.each do |as|
       board[as.to_i] = @com
@@ -116,5 +109,9 @@ class Game
 
   def get_input
     gets.chomp.to_i
+  end
+
+  def available_spaces
+    board.select { |space| space != "X" && space != "O" }
   end
 end
