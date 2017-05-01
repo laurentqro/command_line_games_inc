@@ -35,6 +35,17 @@ describe Board do
 
   describe "#mark" do
     it "marks spot with mark" do
+      board = Board.new
+      board.mark(0, "X")
+
+      expect(board.grid).to eql ["X", "1", "2", "3", "4", "5", "6", "7", "8"]
+    end
+
+    it "raises an error if move is illegal" do
+      grid = ["X", "1", "2", "3", "4", "5", "6", "7", "8"]
+      board = Board.new(grid: grid)
+
+      expect { board.mark(0, "X") }.to raise_error(IllegalMoveError)
     end
   end
 end

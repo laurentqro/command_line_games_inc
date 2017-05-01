@@ -1,3 +1,5 @@
+require 'tic_tac_toe/errors/illegal_move_error'
+
 class Board
   attr_accessor :grid
 
@@ -28,7 +30,11 @@ class Board
     grid.all? { |s| s == "X" || s == "O" }
   end
 
-  def mark(spot, mark)
-    grid[spot] = mark
+  def mark(spot, mark, is_reset: false)
+    if is_reset || available_spaces.include?(spot.to_s)
+      grid[spot] = mark
+    else
+      raise IllegalMoveError.new(spot)
+    end
   end
 end
