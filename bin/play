@@ -2,5 +2,34 @@
 
 $LOAD_PATH << 'lib'
 require 'tic_tac_toe/game'
+require 'tic_tac_toe/human'
+require 'tic_tac_toe/computer'
+require 'tic_tac_toe/display/cli'
 
-Game.new.start_game
+puts "Player 1 Human (1) or CPU (2)?"
+choice = gets.chomp
+
+if choice == "1"
+  player_1 = Human.new(mark: "X")
+  puts "Player 1 is human"
+else
+  player_1 = Computer.new(mark: "O")
+  puts "Player 1 is Computer"
+end
+
+puts "Player 2 Human (1) or Computer (2)?"
+choice = gets.chomp
+
+if choice == "1"
+  player_2 = Human.new(mark: "X")
+  puts "Player 2 is human"
+else
+  player_2= Computer.new(mark: "O")
+  puts "Player 2 is Computer"
+end
+
+game = Game.new(player_1: player_1,
+                player_2: player_2,
+                display: Display::Cli.new)
+
+game.start

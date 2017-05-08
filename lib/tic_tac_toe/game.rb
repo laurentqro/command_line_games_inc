@@ -1,98 +1,83 @@
 require 'tic_tac_toe/board'
-require 'tic_tac_toe/display/cli'
+require "tic_tac_toe/display/cli"
+require "tic_tac_toe/human"
+require "tic_tac_toe/computer"
 
 class Game
-  attr_reader :board, :display
+  attr_reader :board, :display, :player_1, :player_2
 
-  def initialize(board: Board.new, display: Display::Cli.new)
+  def initialize(board: Board.new, display: Display::Cli.new, player_1: Human.new, player_2: Computer.new)
     @board = board
     @display = display
-    @com = "X" # the computer's marker
-    @hum = "O" # the user's marker
+    @player_1 = player_1
+    @player_2 = player_2
   end
 
-  def start_game
+  def start
     print_board
-    prompt_player_input
 
     until is_over?
-      get_human_spot
+      get_player_1_spot
       if !is_over?
-        get_computer_spot
+        get_player_2_spot
       end
       print_board
     end
     puts notify_game_over
   end
 
-  def get_human_spot
+  def get_player_1_spot
+    puts "#" * 50
+    puts "#{player_1.class.name}'s turn to play."
+    puts "#" * 50
+
+    prompt_player_input if player_1.is_human?
     spot = nil
     until spot
-      spot = get_input
+      spot = player_1.get_spot(board, opponent: player_2)
       begin
-        board.mark(spot, @hum)
+        board.mark(spot, player_1.mark)
+        puts "#" * 50
+        puts "#{player_1.class.name} played #{player_1.mark} on spot #{spot}"
+        puts "#" * 50
+
       rescue IllegalMoveError, InvalidInputError => e
         puts e.message
         print_board
-        prompt_player_input
+        prompt_player_input if player_1.is_human?
         spot = nil
       end
     end
   end
 
-  def get_computer_spot
+  def get_player_2_spot
+    puts "#" * 50
+    puts "#{player_2.class.name}'s turn to play."
+    puts "#" * 50
+
+    prompt_player_input if player_2.is_human?
     spot = nil
     until spot
-      if board.grid[4] == "4"
-        spot = "4"
-        board.mark(spot, @com)
-      else
-        spot = get_best_move
-        board.mark(spot, @com)
+      spot = player_2.get_spot(board, opponent: player_1)
+      begin
+        board.mark(spot, player_2.mark)
+        puts "#" * 50
+        puts "#{player_2.class.name} played #{player_2.mark} on spot #{spot}"
+        puts "#" * 50
+
+      rescue IllegalMoveError, InvalidInputError => e
+        puts e.message
+        print_board
+        prompt_player_input if player_2.is_human?
+        spot = nil
       end
     end
-  end
-
-  def get_best_move
-    best_move = nil
-
-    available_spaces.each do |as|
-      board.mark(as, @com)
-      # if can win with next move, play that
-      if is_over?
-        best_move = as
-        board.mark(as, as, is_reset: true)
-        return best_move
-      else
-        # block human winning with next move
-        board.mark(as, as, is_reset: true)
-        board.mark(as, @hum)
-        if is_over?
-          best_move = as
-          board.mark(as, as, is_reset: true)
-          return best_move
-        else
-          board.mark(as, as, is_reset: true)
-        end
-      end
-    end
-
-    n = rand(0..available_spaces.count)
-    return available_spaces[n]
   end
 
   private
 
   def is_over?
     board.win? || board.tie?
-  end
-
-  def get_input
-    gets.chomp
-  end
-
-  def available_spaces
-    board.available_spaces
   end
 
   def prompt_player_input
