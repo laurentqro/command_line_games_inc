@@ -1,10 +1,12 @@
 require 'tic_tac_toe/board'
+require 'tic_tac_toe/display/cli'
 
 class Game
-  attr_reader :board
+  attr_reader :board, :display
 
-  def initialize(board: Board.new)
+  def initialize(board: Board.new, display: Display::Cli.new)
     @board = board
+    @display = display
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
   end
@@ -98,7 +100,7 @@ class Game
   end
 
   def print_board
-    board.print_grid
+    display.print(board.grid)
   end
 
   def notify_game_over

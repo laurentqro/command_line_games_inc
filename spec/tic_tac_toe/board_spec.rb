@@ -7,14 +7,6 @@ describe Board do
     end
   end
 
-  describe "#print_grid" do
-    it "prints the board" do
-      expected_output =  " 0 | 1 | 2 \n===+===+===\n 3 | 4 | 5 \n===+===+===\n 6 | 7 | 8 \n"
-
-      expect { Board.new.print_grid }.to output(expected_output).to_stdout
-    end
-  end
-
   describe "#win?" do
     it "identifies win" do
       grid = ["X", "X", "X", "3", "4", "5", "6", "7", "8"]
