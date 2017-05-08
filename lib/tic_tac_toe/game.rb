@@ -4,74 +4,54 @@ require "tic_tac_toe/human"
 require "tic_tac_toe/computer"
 
 class Game
-  attr_reader :board, :display, :player_1, :player_2
+  attr_reader :board, :display, :player_1, :player_2, :current_player
 
-  def initialize(board: Board.new, display: Display::Cli.new, player_1: Human.new, player_2: Computer.new)
+  def initialize(board: Board.new, display: Display::Cli.new, player_1: Human.new, player_2: Computer.new, current_player:)
     @board = board
     @display = display
     @player_1 = player_1
     @player_2 = player_2
+    @current_player = current_player
   end
 
   def start
     print_board
 
     until is_over?
-      get_player_1_spot
-      if !is_over?
-        get_player_2_spot
-      end
+      get_current_player_spot
+      next_player
       print_board
     end
     puts notify_game_over
   end
 
-  def get_player_1_spot
+  def get_current_player_spot
     puts "#" * 50
-    puts "#{player_1.class.name}'s turn to play."
+    puts "#{current_player.class.name}'s turn to play."
     puts "#" * 50
 
-    prompt_player_input if player_1.is_human?
+    prompt_player_input if current_player.is_human?
     spot = nil
     until spot
-      spot = player_1.get_spot(board, opponent: player_2)
+      spot = current_player.get_spot(board)
       begin
-        board.mark(spot, player_1.mark)
+        board.mark(spot, current_player.mark)
         puts "#" * 50
-        puts "#{player_1.class.name} played #{player_1.mark} on spot #{spot}"
+        puts "#{current_player.class.name} played #{current_player.mark} on spot #{spot}"
         puts "#" * 50
-
       rescue IllegalMoveError, InvalidInputError => e
         puts e.message
         print_board
-        prompt_player_input if player_1.is_human?
+        prompt_player_input if current_player.is_human?
         spot = nil
       end
     end
   end
 
-  def get_player_2_spot
-    puts "#" * 50
-    puts "#{player_2.class.name}'s turn to play."
-    puts "#" * 50
-
-    prompt_player_input if player_2.is_human?
-    spot = nil
-    until spot
-      spot = player_2.get_spot(board, opponent: player_1)
-      begin
-        board.mark(spot, player_2.mark)
-        puts "#" * 50
-        puts "#{player_2.class.name} played #{player_2.mark} on spot #{spot}"
-        puts "#" * 50
-
-      rescue IllegalMoveError, InvalidInputError => e
-        puts e.message
-        print_board
-        prompt_player_input if player_2.is_human?
-        spot = nil
-      end
-    end
+  def next_player
+    puts "NEEEEEXT!"
+    current_player == player_1 ? @current_player = player_2 : @current_player = player_1
+    puts "New current player is #{current_player.class.name}"
   end
 
   private

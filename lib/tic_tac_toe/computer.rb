@@ -1,11 +1,12 @@
 class Computer
-  attr_reader :mark
+  attr_reader :mark, :name
 
-  def initialize(mark: "X")
+  def initialize(mark: "X", name: "Dumbot")
     @mark = mark
+    @name = name
   end
 
-  def get_spot(board, opponent: opponent)
+  def get_spot(board)
     return "4" if board.grid[4] == "4"
 
     board.available_spaces.each do |as|
@@ -18,7 +19,7 @@ class Computer
       else
         # block human winning with next move
         board.mark(as, as, is_reset: true)
-        board.mark(as, opponent.mark)
+        board.mark(as, opponent_mark)
         if board.win? || board.tie?
           best_move = as
           board.mark(as, as, is_reset: true)
@@ -35,5 +36,9 @@ class Computer
 
   def is_human?
     false
+  end
+
+  def opponent_mark
+    mark == "X" ? "O" : "X"
   end
 end

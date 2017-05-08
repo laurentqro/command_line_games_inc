@@ -1,11 +1,12 @@
 class Human
-  attr_reader :mark
+  attr_reader :mark, :name
 
-  def initialize(mark: "O")
+  def initialize(mark: "O", name: "Hooman")
+    @name = name
     @mark = mark
   end
 
-  def get_spot(board, opponent:)
+  def get_spot(_board)
     gets.chomp
   end
 

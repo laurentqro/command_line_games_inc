@@ -6,30 +6,56 @@ require 'tic_tac_toe/human'
 require 'tic_tac_toe/computer'
 require 'tic_tac_toe/display/cli'
 
+puts "#" * 50
 puts "Player 1 Human (1) or CPU (2)?"
+puts "#" * 50
 choice = gets.chomp
 
 if choice == "1"
-  player_1 = Human.new(mark: "X")
+  player_1 = Human.new(name: "Player 1", mark: "X")
+  puts "#" * 50
   puts "Player 1 is human"
+  puts "#" * 50
 else
-  player_1 = Computer.new(mark: "O")
+  player_2= Computer.new(name: "Player 2", mark: "O")
+  puts "#" * 50
   puts "Player 1 is Computer"
+  puts "#" * 50
 end
 
+puts "#" * 50
 puts "Player 2 Human (1) or Computer (2)?"
+choice = gets.chomp
+puts "#" * 50
+
+if choice == "1"
+  player_1 = Human.new(name: "Player 2", mark: "X")
+  puts "Player 2 is human"
+else
+  player_2= Computer.new(name: "Player 2", mark: "O")
+  puts "Player 2 is Computer"
+end
+
+puts "#" * 50
+puts "Who will make the first move?"
+puts "1. Player 1 (#{player_1.class.name})"
+puts "2. Player 2 (#{player_2.class.name})"
+puts "#" * 50
 choice = gets.chomp
 
 if choice == "1"
-  player_2 = Human.new(mark: "X")
-  puts "Player 2 is human"
+  first_player = player_1
 else
-  player_2= Computer.new(mark: "O")
-  puts "Player 2 is Computer"
+  first_player = player_2
 end
 
 game = Game.new(player_1: player_1,
                 player_2: player_2,
-                display: Display::Cli.new)
+                display: Display::Cli.new,
+                current_player: first_player)
+
+puts "#" * 50
+puts "#{first_player.name} will play first."
+puts "#" * 50
 
 game.start
