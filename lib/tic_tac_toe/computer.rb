@@ -35,19 +35,18 @@ class Computer
     return board.available_spaces[n]
   end
 
-  def choose_mark(opponent: nil)
-    if opponent.mark.nil?
-      ["X", "O"].sample
-    else
-      opponent.mark == "X" ? "O" : "X"
-    end
-  end
-
-  def opponent_mark
-    mark == "X" ? "O" : "X"
+  def choose_mark(opponent:)
+    return "X" if opponent.mark.nil?
+    opponent.mark == "X" ? "O" : "X"
   end
 
   def to_s
     "Player #{number}"
+  end
+
+  private
+
+  def opponent_mark
+    mark == "X" ? "O" : "X"
   end
 end
