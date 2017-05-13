@@ -42,7 +42,7 @@ describe Display::Cli do
   describe "#announce_move" do
     it "announces the current player's move" do
       player = Human.new(number: 1, mark: "X")
-      expect { described_class.new.announce_move(player, 0) }.to output( "Player 1 played X on spot 0.").to_stdout
+      expect { described_class.new.announce_move(player, 0) }.to output( "Player 1 played X on spot 0.\n").to_stdout
     end
   end
 
@@ -62,6 +62,13 @@ describe Display::Cli do
   describe "#announce_draw" do
     it "announces the draw" do
       expect { described_class.new.announce_draw }.to output("Draw!\n").to_stdout
+    end
+  end
+
+  describe "#announce_player_turn" do
+    it "informs the user of the current player" do
+      player = Human.new(number: 1)
+      expect { described_class.new.announce_player_turn(player) }.to output("Player 1's turn to play.\n").to_stdout
     end
   end
 end

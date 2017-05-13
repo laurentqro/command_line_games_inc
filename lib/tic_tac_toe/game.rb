@@ -68,9 +68,9 @@ class Game
 
   def notify_game_over
     if board.win?
-      display.win(current_player)
+      display.announce_win(current_player)
     else
-      display.draw
+      display.announce_draw
     end
   end
 end
