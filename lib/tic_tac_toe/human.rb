@@ -2,7 +2,7 @@ class Human
   attr_accessor :mark
   attr_reader :number
 
-  def initialize(number:, mark: nil)
+  def initialize(number: nil, mark: nil)
     @number = number
     @mark = mark
   end
