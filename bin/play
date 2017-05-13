@@ -12,12 +12,12 @@ puts "#" * 50
 choice = gets.chomp
 
 if choice == "1"
-  player_1 = Human.new(name: "Player 1", mark: "X")
+  player_1 = Human.new(name: "Player 1")
   puts "#" * 50
   puts "Player 1 is human"
   puts "#" * 50
 else
-  player_2= Computer.new(name: "Player 2", mark: "O")
+  player_1= Computer.new(name: "Player 1")
   puts "#" * 50
   puts "Player 1 is Computer"
   puts "#" * 50
@@ -29,12 +29,32 @@ choice = gets.chomp
 puts "#" * 50
 
 if choice == "1"
-  player_1 = Human.new(name: "Player 2", mark: "X")
+  player_2 = Human.new(name: "Player 2")
   puts "Player 2 is human"
 else
-  player_2= Computer.new(name: "Player 2", mark: "O")
+  player_2 = Computer.new(name: "Player 2")
   puts "Player 2 is Computer"
 end
+
+puts "#" * 50
+puts "Choose mark for Player 1. X (1) or O (2)?" if player_1.is_a?(Human)
+puts "#" * 50
+
+choice = player_1.choose_mark(opponent: player_2)
+
+if choice == "1"
+  player_1.mark = "X"
+else
+  player_1.mark = "O"
+end
+
+player_1.mark
+puts "#" * 50
+puts "Player 1 will play with #{player_1.mark}"
+puts "#" * 50
+player_2.mark = player_2.choose_mark(opponent: player_1)
+puts "Player 2 will play with #{player_2.mark}"
+puts "#" * 50
 
 puts "#" * 50
 puts "Who will make the first move?"

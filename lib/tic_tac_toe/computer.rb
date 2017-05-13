@@ -1,7 +1,8 @@
 class Computer
-  attr_reader :mark, :name
+  attr_accessor :mark
+  attr_reader :name
 
-  def initialize(mark: "X", name: "Dumbot")
+  def initialize(mark: nil, name: "Dumbot")
     @mark = mark
     @name = name
   end
@@ -34,8 +35,12 @@ class Computer
     return board.available_spaces[n]
   end
 
-  def is_human?
-    false
+  def choose_mark(opponent: nil)
+    if opponent.mark.nil?
+      ["X", "O"].sample
+    else
+      opponent.mark == "X" ? "O" : "X"
+    end
   end
 
   def opponent_mark
