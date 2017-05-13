@@ -30,7 +30,7 @@ class Game
     puts "#{current_player.class.name}'s turn to play."
     puts "#" * 50
 
-    prompt_player_input if current_player.is_human?
+    prompt_player_input if current_player.is_a?(Human)
     spot = nil
     until spot
       spot = current_player.get_spot(board)
@@ -42,7 +42,7 @@ class Game
       rescue IllegalMoveError, InvalidInputError => e
         puts e.message
         print_board
-        prompt_player_input if current_player.is_human?
+        prompt_player_input if current_player.is_a?(Human)
         spot = nil
       end
     end
