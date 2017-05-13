@@ -9,7 +9,7 @@ module Display
     end
 
     def pick_mark_for(player)
-      print "Choose mark for Player #{player.number}. X (1) or O (2)?"
+      puts "Choose mark for Player #{player.number}. X (1) or O (2)?"
     end
 
     def announce_configuration(game)
@@ -25,11 +25,15 @@ module Display
     end
 
     def announce_move(player, spot)
-      print "Player #{player.number} played #{player.mark} on spot #{spot}."
+      puts "Player #{player.number} played #{player.mark} on spot #{spot}."
     end
 
     def pick_move
       puts "Enter [0-8]:"
+    end
+
+    def announce_player_turn(player)
+      puts "Player #{player.number}'s turn to play."
     end
 
     def announce_win(player)

@@ -27,21 +27,24 @@ class Game
   private
 
   def get_current_player_spot
-    puts "#" * 50
-    puts "Player #{current_player.number}'s turn to play."
-    puts "#" * 50
-
-    prompt_player_input if current_player.is_a?(Human)
+    display.announce_player_turn(current_player)
     spot = nil
+
     until spot
-      spot = current_player.get_spot(board)
+      if current_player.is_a?(Human)
+        prompt_player_input
+        spot = display.get_input
+      else
+        spot = current_player.get_spot(board)
+      end
+
       begin
         board.mark(spot, current_player.mark)
         display.announce_move(current_player, spot)
       rescue IllegalMoveError, InvalidInputError => e
         puts e.message
         print_board
-        prompt_player_input if current_player.is_a?(Human)
+        prompt_player_input
         spot = nil
       end
     end
