@@ -27,7 +27,7 @@ class Game
 
   def get_current_player_spot
     puts "#" * 50
-    puts "#{current_player.class.name}'s turn to play."
+    puts "#{current_player.name}'s turn to play."
     puts "#" * 50
 
     prompt_player_input if current_player.is_a?(Human)
@@ -37,7 +37,7 @@ class Game
       begin
         board.mark(spot, current_player.mark)
         puts "#" * 50
-        puts "#{current_player.class.name} played #{current_player.mark} on spot #{spot}"
+        puts "#{current_player.name} played #{current_player.mark} on spot #{spot}"
         puts "#" * 50
       rescue IllegalMoveError, InvalidInputError => e
         puts e.message
@@ -49,9 +49,7 @@ class Game
   end
 
   def next_player
-    puts "NEEEEEXT!"
     current_player == player_1 ? @current_player = player_2 : @current_player = player_1
-    puts "New current player is #{current_player.class.name}"
   end
 
   private
