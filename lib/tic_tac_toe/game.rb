@@ -60,7 +60,7 @@ class Game
   end
 
   def print_board
-    display.print(board.grid)
+    display.print_board(board.grid)
   end
 
   def notify_game_over
