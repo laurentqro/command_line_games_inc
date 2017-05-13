@@ -1,9 +1,9 @@
 class Human
   attr_accessor :mark
-  attr_reader :name
+  attr_reader :number
 
-  def initialize(mark: nil, name: "Hooman")
-    @name = name
+  def initialize(number:, mark: nil)
+    @number = number
     @mark = mark
   end
 
@@ -17,5 +17,9 @@ class Human
 
   def get_spot(_board)
     gets.chomp
+  end
+
+  def to_s
+    "Player #{number}"
   end
 end

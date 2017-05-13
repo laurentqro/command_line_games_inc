@@ -1,10 +1,10 @@
 class Computer
   attr_accessor :mark
-  attr_reader :name
+  attr_reader :number
 
-  def initialize(mark: nil, name: "Dumbot")
+  def initialize(number:, mark: nil)
+    @number = number
     @mark = mark
-    @name = name
   end
 
   def get_spot(board)
@@ -45,5 +45,9 @@ class Computer
 
   def opponent_mark
     mark == "X" ? "O" : "X"
+  end
+
+  def to_s
+    "Player #{number}"
   end
 end

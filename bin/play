@@ -6,76 +6,35 @@ require 'tic_tac_toe/human'
 require 'tic_tac_toe/computer'
 require 'tic_tac_toe/display/cli'
 
-puts "#" * 50
-puts "Player 1 Human (1) or CPU (2)?"
-puts "#" * 50
-choice = gets.chomp
+display = Display::Cli.new
 
-if choice == "1"
-  player_1 = Human.new(name: "Player 1")
-  puts "#" * 50
-  puts "Player 1 is human"
-  puts "#" * 50
-else
-  player_1= Computer.new(name: "Player 1")
-  puts "#" * 50
-  puts "Player 1 is Computer"
-  puts "#" * 50
-end
+display.pick_player(1)
+choice = display.get_input
+player_1 = choice == "1" ? Human.new(number: 1) : Computer.new(number: 2)
 
-puts "#" * 50
-puts "Player 2 Human (1) or Computer (2)?"
-choice = gets.chomp
-puts "#" * 50
+display.pick_player(2)
+choice = display.get_input
+player_2 = choice == "1" ? Human.new(number: 2) : Computer.new(number: 2)
 
-if choice == "1"
-  player_2 = Human.new(name: "Player 2")
-  puts "Player 2 is human"
-else
-  player_2 = Computer.new(name: "Player 2")
-  puts "Player 2 is Computer"
-end
-
-puts "#" * 50
-puts "Choose mark for Player 1. X (1) or O (2)?" if player_1.is_a?(Human)
-puts "#" * 50
+display.pick_mark_for(player_1) if player_1.is_a?(Human)
 
 choice = player_1.choose_mark(opponent: player_2)
 
-if choice == "1"
-  player_1.mark = "X"
-else
-  player_1.mark = "O"
-end
+player_1.mark = choice == "1" ? "X" : "O"
 
-player_1.mark
-puts "#" * 50
-puts "Player 1 will play with #{player_1.mark}"
-puts "#" * 50
 player_2.mark = player_2.choose_mark(opponent: player_1)
-puts "Player 2 will play with #{player_2.mark}"
-puts "#" * 50
 
-puts "#" * 50
-puts "Who will make the first move?"
-puts "1. Player 1 (#{player_1.class.name})"
-puts "2. Player 2 (#{player_2.class.name})"
-puts "#" * 50
-choice = gets.chomp
+display.pick_first_player
 
-if choice == "1"
-  first_player = player_1
-else
-  first_player = player_2
-end
+choice = display.get_input
+
+first_player = choice == "1" ? player_1 : player_2
 
 game = Game.new(player_1: player_1,
                 player_2: player_2,
-                display: Display::Cli.new,
+                display: display,
                 current_player: first_player)
 
-puts "#" * 50
-puts "#{first_player.name} will play first."
-puts "#" * 50
+display.announce_configuration(game)
 
 game.start

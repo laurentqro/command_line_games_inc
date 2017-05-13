@@ -16,18 +16,19 @@ class Game
 
   def start
     print_board
-
     until is_over?
       get_current_player_spot
       next_player
       print_board
     end
-    puts notify_game_over
+    notify_game_over
   end
+
+  private
 
   def get_current_player_spot
     puts "#" * 50
-    puts "#{current_player.name}'s turn to play."
+    puts "Player #{current_player.number}'s turn to play."
     puts "#" * 50
 
     prompt_player_input if current_player.is_a?(Human)
@@ -36,9 +37,7 @@ class Game
       spot = current_player.get_spot(board)
       begin
         board.mark(spot, current_player.mark)
-        puts "#" * 50
-        puts "#{current_player.name} played #{current_player.mark} on spot #{spot}"
-        puts "#" * 50
+        display.announce_move(current_player, spot)
       rescue IllegalMoveError, InvalidInputError => e
         puts e.message
         print_board
@@ -52,14 +51,12 @@ class Game
     current_player == player_1 ? @current_player = player_2 : @current_player = player_1
   end
 
-  private
-
   def is_over?
     board.win? || board.tie?
   end
 
   def prompt_player_input
-    puts "Enter [0-8]:"
+    display.pick_move
   end
 
   def print_board
@@ -67,6 +64,10 @@ class Game
   end
 
   def notify_game_over
-    puts "Game over"
+    if board.win?
+      display.win(current_player)
+    else
+      display.draw
+    end
   end
 end
