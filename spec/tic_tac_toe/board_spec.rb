@@ -44,4 +44,13 @@ describe Board do
       expect { Board.new.mark("gibberish", "O") }.to raise_error(InvalidInputError)
     end
   end
+
+  describe "#winner_is?" do
+    it "returns true if the mark is the winner" do
+      grid = ["X", "X", "X", 4, "O", 6 , "O", 8, 9]
+      board = Board.new(grid: grid)
+
+      expect(board.winner_is?("X")).to eql true
+    end
+  end
 end

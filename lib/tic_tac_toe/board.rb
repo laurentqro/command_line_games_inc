@@ -37,7 +37,37 @@ class Board
     end
   end
 
+  def winner_is?(mark)
+    winning_combos.any? do |combo|
+      combo.all? { |spot| spot == mark }
+    end
+  end
+
   private
+
+  def winning_combos
+    rows + columns + diagonals
+  end
+
+  def rows
+    grid.each_slice(3).to_a
+  end
+
+  def columns
+    rows.transpose
+  end
+
+  def diagonals
+    [] << right_diagonal << left_diagonal
+  end
+
+  def right_diagonal
+    rows.each_with_index.map { |row, index| row[index] }
+  end
+
+  def left_diagonal
+    rows.reverse.each_with_index.map { |row, index| row[index] }.reverse
+  end
 
   def invalid?(input)
     input.length > 1 || input.to_i > 8
