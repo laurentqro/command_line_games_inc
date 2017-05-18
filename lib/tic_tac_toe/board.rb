@@ -8,8 +8,8 @@ class Board
     @grid = grid
   end
 
-  def available_spaces
-    grid.select { |space| space != "X" && space != "O" }
+  def available_spots
+    grid.select { |spot| spot != "X" && spot != "O" }
   end
 
   def win?
@@ -28,11 +28,11 @@ class Board
   end
 
   def mark(spot, mark, is_reset: false)
-    if is_reset || available_spaces.include?(spot)
+    if is_reset || available_spots.include?(spot)
       grid[spot.to_i] = mark
     elsif invalid?(spot)
       raise InvalidInputError.new(spot)
-    elsif !available_spaces.include?(spot)
+    elsif !available_spots.include?(spot)
       raise IllegalMoveError.new(spot)
     end
   end
