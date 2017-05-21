@@ -5,21 +5,18 @@ require "tic_tac_toe/computer"
 
 module Cli
   class Game
-    attr_reader :board, :display, :player_1, :player_2, :current_player
+    attr_reader :display, :game
 
-    def initialize(board: Board.new, display: Cli::Display.new, player_1: Human.new, player_2: Computer.new, current_player:)
-      @board = board
+    def initialize(display: Cli::Display.new, game:)
       @display = display
-      @player_1 = player_1
-      @player_2 = player_2
-      @current_player = current_player
+      @game = game
     end
 
     def start
       print_board
-      until is_over?
+      until game.is_over?
         get_current_player_spot
-        next_player
+        game.next_player
         print_board
       end
       notify_game_over
@@ -28,20 +25,20 @@ module Cli
     private
 
     def get_current_player_spot
-      display.announce_player_turn(current_player)
+      display.announce_player_turn(game.current_player)
       spot = nil
 
       until spot
-        if current_player.is_a?(Human)
+        if game.current_player.is_a?(Human)
           prompt_player_input
           spot = display.get_input
         else
-          spot = current_player.get_spot(board)
+          spot = game.current_player.get_spot(game.board)
         end
 
         begin
-          board.mark(spot, current_player.mark)
-          display.announce_move(current_player, spot)
+          game.board.mark(spot, game.current_player.mark)
+          display.announce_move(game.current_player, spot)
         rescue IllegalMoveError, InvalidInputError => e
           puts e.message
           print_board
@@ -51,25 +48,17 @@ module Cli
       end
     end
 
-    def next_player
-      current_player == player_1 ? @current_player = player_2 : @current_player = player_1
-    end
-
-    def is_over?
-      board.win? || board.tie?
-    end
-
     def prompt_player_input
       display.pick_move
     end
 
     def print_board
-      display.print_board(board.grid)
+      display.print_board(game.board.grid)
     end
 
     def notify_game_over
-      if board.win?
-        winner = board.winner_is?(player_1.mark) ? player_1 : player_2
+      if game.board.win?
+        winner = game.board.winner_is?(game.player_1.mark) ? game.player_1 : game.player_2
         display.announce_win(winner)
       else
         display.announce_draw
