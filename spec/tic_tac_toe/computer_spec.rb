@@ -9,9 +9,8 @@ describe Computer do
               "O", "O", "5",
               "6", "7", "8"]
       board = Board.new(grid: grid)
-      game = Cli::Game.new(board: board, current_player: computer)
 
-      spot = computer.get_spot(game.board)
+      spot = computer.get_spot(board)
 
       expect(spot).to eql "2"
     end
@@ -22,9 +21,7 @@ describe Computer do
               "O", "O", "5",
               "6", "7", "8"]
       board = Board.new(grid: grid)
-      game = Cli::Game.new(board: board, current_player: computer)
-
-      spot = computer.get_spot(game.board)
+      spot = computer.get_spot(board)
 
       expect(spot).to eql "5"
     end

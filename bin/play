@@ -5,37 +5,11 @@ require 'tic_tac_toe/board'
 require 'tic_tac_toe/computer'
 require 'tic_tac_toe/game'
 require 'tic_tac_toe/human'
-require 'tic_tac_toe/cli/game'
 require 'tic_tac_toe/cli/display'
+require 'tic_tac_toe/cli/game'
+require 'tic_tac_toe/cli/session'
 
-display = Cli::Display.new
+session = Cli::Session.new.setup
+game = Game.new(session: session)
+Cli::Game.new(session: session, game: game).start
 
-display.pick_player(1)
-choice = display.get_input
-player_1 = choice == "1" ? Human.new(number: 1) : Computer.new(number: 2)
-
-display.pick_player(2)
-choice = display.get_input
-player_2 = choice == "1" ? Human.new(number: 2) : Computer.new(number: 2)
-
-display.pick_mark_for(player_1) if player_1.is_a?(Human)
-
-choice = player_1.choose_mark(opponent: player_2)
-
-player_1.mark = choice == "1" ? "X" : "O"
-
-player_2.mark = player_2.choose_mark(opponent: player_1)
-
-display.pick_first_player
-
-choice = display.get_input
-
-first_player = choice == "1" ? player_1 : player_2
-
-game = Game.new(player_1: player_1,
-                player_2: player_2,
-                current_player: first_player)
-
-display.announce_configuration(game)
-
-Cli::Game.new(game: game, display: display).start

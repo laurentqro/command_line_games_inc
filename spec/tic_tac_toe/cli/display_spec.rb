@@ -1,7 +1,7 @@
 require 'tic_tac_toe/cli/display'
 require 'tic_tac_toe/board'
 require 'tic_tac_toe/human'
-require 'tic_tac_toe/cli/game'
+require 'tic_tac_toe/cli/session'
 
 describe Cli::Display do
   describe "#print_board" do
@@ -19,18 +19,14 @@ describe Cli::Display do
     end
   end
 
-  describe "#announce_configuration" do
-    it "gives user a recap of the game configuration" do
+  describe "#announce_setup" do
+    it "gives user a recap of the game setup" do
       player_1 = Human.new(number: 1, mark: "X")
       player_2 = Human.new(number: 2, mark: "O")
-
-      game = Cli::Game.new(player_1: player_1,
-                      player_2: player_2,
-                      display: described_class.new,
-                      current_player: player_1)
+      session = Cli::Session.new(player_1: player_1, player_2: player_2, first_player: player_1)
 
       expected_message = "Player 1 plays with X.\nPlayer 2 plays with O.\nPlayer 1 will play first.\n"
-      expect { described_class.new.announce_configuration(game) }.to output(expected_message).to_stdout
+      expect { described_class.new.announce_setup(session) }.to output(expected_message).to_stdout
     end
   end
 

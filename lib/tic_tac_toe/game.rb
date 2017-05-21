@@ -1,12 +1,11 @@
 class Game
-  attr_reader :board
-  attr_accessor :player_1, :player_2, :current_player
+  attr_reader :board, :player_1, :player_2, :current_player
 
-  def initialize(board: Board.new, player_1: nil, player_2: nil, current_player: nil)
+  def initialize(board: Board.new, session:)
     @board = board
-    @player_1 = player_1
-    @player_2 = player_2
-    @current_player = current_player
+    @player_1 = session.player_1
+    @player_2 = session.player_2
+    @current_player = session.first_player
   end
 
   def is_over?

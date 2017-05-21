@@ -5,14 +5,15 @@ require "tic_tac_toe/computer"
 
 module Cli
   class Game
-    attr_reader :display, :game
+    attr_reader :session, :game
 
-    def initialize(display: Cli::Display.new, game:)
-      @display = display
+    def initialize(session:, game:)
+      @session = session
       @game = game
     end
 
     def start
+      announce_setup
       print_board
       until game.is_over?
         get_current_player_spot
@@ -23,6 +24,10 @@ module Cli
     end
 
     private
+
+    def display
+      Cli::Display.new
+    end
 
     def get_current_player_spot
       display.announce_player_turn(game.current_player)
@@ -46,6 +51,10 @@ module Cli
           spot = nil
         end
       end
+    end
+
+    def announce_setup
+      display.announce_setup(session)
     end
 
     def prompt_player_input
