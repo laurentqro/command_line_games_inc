@@ -1,7 +1,9 @@
-require 'tic_tac_toe/display/cli'
+require 'tic_tac_toe/cli/display'
 require 'tic_tac_toe/board'
+require 'tic_tac_toe/human'
+require 'tic_tac_toe/game'
 
-describe Display::Cli do
+describe Cli::Display do
   describe "#print_board" do
     it "prints the board" do
       board = Board.new

@@ -6,7 +6,7 @@ require 'tic_tac_toe/human'
 require 'tic_tac_toe/computer'
 require 'tic_tac_toe/display/cli'
 
-display = Display::Cli.new
+display = Cli::Display.new
 
 display.pick_player(1)
 choice = display.get_input

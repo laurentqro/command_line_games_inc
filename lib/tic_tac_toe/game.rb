@@ -1,12 +1,12 @@
 require 'tic_tac_toe/board'
-require "tic_tac_toe/display/cli"
+require "tic_tac_toe/cli/display"
 require "tic_tac_toe/human"
 require "tic_tac_toe/computer"
 
 class Game
   attr_reader :board, :display, :player_1, :player_2, :current_player
 
-  def initialize(board: Board.new, display: Display::Cli.new, player_1: Human.new, player_2: Computer.new, current_player:)
+  def initialize(board: Board.new, display: Cli::Display.new, player_1: Human.new, player_2: Computer.new, current_player:)
     @board = board
     @display = display
     @player_1 = player_1
