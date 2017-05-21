@@ -1,5 +1,5 @@
 require "tic_tac_toe/computer"
-require "tic_tac_toe/game"
+require "tic_tac_toe/cli/game"
 
 describe Computer do
   describe "#get_spot" do
@@ -9,7 +9,7 @@ describe Computer do
               "O", "O", "5",
               "6", "7", "8"]
       board = Board.new(grid: grid)
-      game = Game.new(board: board, current_player: computer)
+      game = Cli::Game.new(board: board, current_player: computer)
 
       spot = computer.get_spot(game.board)
 
@@ -22,7 +22,7 @@ describe Computer do
               "O", "O", "5",
               "6", "7", "8"]
       board = Board.new(grid: grid)
-      game = Game.new(board: board, current_player: computer)
+      game = Cli::Game.new(board: board, current_player: computer)
 
       spot = computer.get_spot(game.board)
 

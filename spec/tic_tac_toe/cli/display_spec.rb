@@ -1,7 +1,7 @@
 require 'tic_tac_toe/cli/display'
 require 'tic_tac_toe/board'
 require 'tic_tac_toe/human'
-require 'tic_tac_toe/game'
+require 'tic_tac_toe/cli/game'
 
 describe Cli::Display do
   describe "#print_board" do
@@ -24,7 +24,7 @@ describe Cli::Display do
       player_1 = Human.new(number: 1, mark: "X")
       player_2 = Human.new(number: 2, mark: "O")
 
-      game = Game.new(player_1: player_1,
+      game = Cli::Game.new(player_1: player_1,
                       player_2: player_2,
                       display: described_class.new,
                       current_player: player_1)
