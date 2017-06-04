@@ -7,10 +7,6 @@ class Human
     @mark = mark
   end
 
-  def get_spot(_board)
-    gets.chomp
-  end
-
   def to_s
     "Player #{number}"
   end
