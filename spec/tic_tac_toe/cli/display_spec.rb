@@ -76,4 +76,16 @@ describe Cli::Display do
       expect { described_class.new.title }.to output(expected).to_stdout
     end
   end
+
+  describe "#play_again" do
+    it "prompts the user to play again or exit the session" do
+      expect { described_class.new.play_again }.to output("Play again? Yes (1) or No (2)\n").to_stdout
+    end
+  end
+
+  describe "#goodbye" do
+    it "says goodbye" do
+      expect { described_class.new.goodbye }.to output("Goodbye!\n").to_stdout
+    end
+  end
 end

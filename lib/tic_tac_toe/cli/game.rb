@@ -5,7 +5,8 @@ require "tic_tac_toe/computer"
 
 module Cli
   class Game
-    attr_reader :session, :game
+    attr_reader :session
+    attr_accessor :game
 
     def initialize(session:, game:)
       @session = session
@@ -22,6 +23,7 @@ module Cli
         game.next_player
       end
       notify_game_over
+      play_again
     end
 
     private
@@ -72,6 +74,18 @@ module Cli
         display.announce_win(winner)
       else
         display.announce_draw
+      end
+    end
+
+    def play_again
+      display.play_again
+      choice = display.get_input
+      if choice == "1"
+        self.game = ::Game.new(session: session)
+        self.start
+      else
+        display.goodbye
+        exit
       end
     end
   end

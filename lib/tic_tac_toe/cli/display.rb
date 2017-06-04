@@ -57,5 +57,13 @@ module Cli
       puts "TIC TAC TOE by Command Line Games Inc."
       puts "#" * 50
     end
+
+    def play_again
+      puts "Play again? Yes (1) or No (2)"
+    end
+
+    def goodbye
+      puts "Goodbye!"
+    end
   end
 end
