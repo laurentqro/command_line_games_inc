@@ -13,6 +13,7 @@ module Cli
     end
 
     def setup
+      display_title
       set_player_1
       set_player_2
       set_marks
@@ -45,6 +46,10 @@ module Cli
       display.pick_first_player
       choice = display.get_input
       @first_player = choice == "1" ? @player_1 : @player_2
+    end
+
+    def display_title
+      display.title
     end
   end
 end

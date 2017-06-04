@@ -51,5 +51,11 @@ module Cli
     def clear_screen
       puts "\e[2J\e[f"
     end
+
+    def title
+      puts "#" * 50
+      puts "TIC TAC TOE by Command Line Games Inc."
+      puts "#" * 50
+    end
   end
 end

@@ -69,4 +69,11 @@ describe Cli::Display do
       expect { described_class.new.announce_player_turn(player) }.to output("Player 1's turn to play.\n").to_stdout
     end
   end
+
+  describe "#title" do
+    it "displays the game's title" do
+      expected = "##################################################\nTIC TAC TOE by Command Line Games Inc.\n##################################################\n"
+      expect { described_class.new.title }.to output(expected).to_stdout
+    end
+  end
 end
