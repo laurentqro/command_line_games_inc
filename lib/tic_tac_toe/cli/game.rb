@@ -80,6 +80,9 @@ module Cli
     def play_again
       display.play_again
       choice = display.get_input
+      until valid?(choice)
+        choice = validate(choice)
+      end
       if choice == "1"
         self.game = ::Game.new(session: session)
         self.start
@@ -87,6 +90,20 @@ module Cli
         display.goodbye
         exit
       end
+    end
+
+    def valid?(choice)
+      ["1", "2"].include?(choice)
+    end
+
+    def validate(choice)
+      begin
+        raise InvalidInputError.new(choice)
+      rescue InvalidInputError => e
+        puts e.message
+        choice = display.get_input
+      end
+      choice
     end
   end
 end

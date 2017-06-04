@@ -4,6 +4,6 @@ class InvalidInputError < StandardError
   end
 
   def message
-    "#{@input} is not a valid move."
+    "#{@input} is not valid input."
   end
 end
