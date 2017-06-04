@@ -7,14 +7,6 @@ class Human
     @mark = mark
   end
 
-  def choose_mark(opponent:)
-    if opponent.mark.nil?
-      gets.chomp
-    else
-      opponent.mark == "X" ? "O" : "X"
-    end
-  end
-
   def get_spot(_board)
     gets.chomp
   end

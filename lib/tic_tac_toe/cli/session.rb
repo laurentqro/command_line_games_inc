@@ -30,9 +30,9 @@ module Cli
 
     def set_marks
       display.pick_mark_for(@player_1) if @player_1.is_a?(Human)
-      choice = @player_1.choose_mark(opponent: @player_2)
+      choice = display.get_input
       @player_1.mark = choice == "1" ? "X" : "O"
-      @player_2.mark = @player_2.choose_mark(opponent: @player_1)
+      @player_2.mark = player_1.mark == "X" ? "O" : "X"
     end
 
     def set_first_player

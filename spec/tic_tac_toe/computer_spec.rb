@@ -27,15 +27,6 @@ describe Computer do
     end
   end
 
-  describe "#choose_mark" do
-    it "chooses mark based on opponent" do
-      player = Computer.new
-      opponent = Computer.new(mark: "X")
-      choice = player.choose_mark(opponent: opponent)
-      expect(choice).to eql "O"
-    end
-  end
-
   describe "#to_s" do
     it "outputs player name" do
       expect(Computer.new(number: 1).to_s).to eq "Player 1"

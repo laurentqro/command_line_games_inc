@@ -17,11 +17,6 @@ class Computer
     minimax(game_state: GameState.new(board: board, current_player_mark: mark, max_player_mark: mark))
   end
 
-  def choose_mark(opponent:)
-    return "X" if opponent.mark.nil?
-    opponent.mark == "X" ? "O" : "X"
-  end
-
   private
 
   def minimax(game_state:, depth: 0, spot_scores: {})
