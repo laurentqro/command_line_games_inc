@@ -47,5 +47,9 @@ module Cli
     def get_input
       gets.chomp
     end
+
+    def clear_screen
+      puts "\e[2J\e[f"
+    end
   end
 end

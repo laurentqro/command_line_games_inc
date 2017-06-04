@@ -13,12 +13,13 @@ module Cli
     end
 
     def start
+      display.clear_screen
       announce_setup
       print_board
       until game.is_over?
         get_current_player_spot
-        game.next_player
         print_board
+        game.next_player
       end
       notify_game_over
     end
@@ -38,16 +39,16 @@ module Cli
           prompt_player_input
           spot = display.get_input
         else
+          sleep 3
           spot = game.current_player.get_spot(game.board)
         end
 
         begin
           game.board.mark(spot, game.current_player.mark)
+          display.clear_screen
           display.announce_move(game.current_player, spot)
         rescue IllegalMoveError, InvalidInputError => e
           puts e.message
-          print_board
-          prompt_player_input
           spot = nil
         end
       end
