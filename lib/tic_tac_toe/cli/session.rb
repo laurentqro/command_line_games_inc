@@ -1,11 +1,15 @@
+require 'tic_tac_toe/cli/display'
+
 module Cli
   class Session
     attr_accessor :player_1, :player_2, :first_player
+    attr_reader :display
 
-    def initialize(player_1: nil, player_2: nil, first_player: nil)
+    def initialize(player_1: nil, player_2: nil, first_player: nil, display: Cli::Display.new)
       @player_1 = player_1
       @player_2 = player_2
       @first_player = first_player
+      @display = display
     end
 
     def setup
@@ -15,6 +19,8 @@ module Cli
       set_first_player
       self
     end
+
+    private
 
     def set_player_1
       display.pick_player(1)
@@ -39,10 +45,6 @@ module Cli
       display.pick_first_player
       choice = display.get_input
       @first_player = choice == "1" ? @player_1 : @player_2
-    end
-
-    def display
-      Display.new
     end
   end
 end
