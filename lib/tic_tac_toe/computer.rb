@@ -13,6 +13,16 @@ class Computer
     "Player #{number}"
   end
 
+  def play(board)
+    spot = get_spot(board)
+    board.mark(spot, mark)
+    spot
+  end
+
+  def prompt_play
+    # not implemented
+  end
+
   def get_spot(board)
     minimax(game_state: GameState.new(board: board, current_player_mark: mark, max_player_mark: mark))
   end
