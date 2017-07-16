@@ -14,17 +14,17 @@ module Cli
     end
 
     def start
-      display.clear_screen
+      clear_screen
       announce_setup
       print_board
 
-      until game.is_over?
-        display.announce_player_turn(current_player)
+      until game_over
+        announce_player_turn(current_player)
         spot = current_player.play(game.board)
-        display.clear_screen
-        display.announce_move(current_player, spot)
+        clear_screen
+        announce_move(current_player, spot)
         print_board
-        game.next_player
+        next_player
       end
 
       notify_game_over
@@ -39,6 +39,26 @@ module Cli
 
     def display
       Cli::Display.new
+    end
+
+    def next_player
+      game.next_player
+    end
+
+    def game_over
+      game.is_over?
+    end
+
+    def announce_move(player, spot)
+      display.announce_move(player, spot)
+    end
+
+    def announce_player_turn(player)
+      display.announce_player_turn(player)
+    end
+
+    def clear_screen
+      display.clear_screen
     end
 
     def announce_setup
@@ -61,9 +81,11 @@ module Cli
     def play_again
       display.play_again
       choice = display.get_input
+
       until valid?(choice)
         choice = validate(choice)
       end
+
       if choice == "1"
         self.game = ::Game.new(session: session)
         self.start
