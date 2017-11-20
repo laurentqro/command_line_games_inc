@@ -4,7 +4,7 @@ require 'tic_tac_toe/errors/invalid_input_error'
 class Board
   attr_accessor :grid
 
-  def initialize(grid: ["0", "1", "2", "3", "4", "5", "6", "7", "8"])
+  def initialize(grid: ["1", "2", "3", "4", "5", "6", "7", "8", "9"])
     @grid = grid
   end
 
@@ -29,7 +29,7 @@ class Board
 
   def mark(spot, mark, is_reset: false)
     if is_reset || available_spots.include?(spot)
-      grid[spot.to_i] = mark
+      grid[spot.to_i - 1] = mark
     elsif invalid?(spot)
       raise InvalidInputError.new(spot)
     elsif !available_spots.include?(spot)

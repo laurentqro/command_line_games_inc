@@ -7,7 +7,7 @@ describe Cli::Display do
   describe "#print_board" do
     it "prints the board" do
       board = Board.new
-      expected_message =  " 0 | 1 | 2 \n===+===+===\n 3 | 4 | 5 \n===+===+===\n 6 | 7 | 8\n"
+      expected_message =  " 1 | 2 | 3 \n===+===+===\n 4 | 5 | 6 \n===+===+===\n 7 | 8 | 9\n"
       expect { described_class.new.print_board(board.grid) }.to output(expected_message).to_stdout
     end
   end

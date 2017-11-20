@@ -3,7 +3,7 @@ require "tic_tac_toe/board"
 describe Board do
   describe "#new" do
     it "has a grid" do
-      expect(Board.new.grid).to eql ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+      expect(Board.new.grid).to eql ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     end
   end
 
@@ -28,9 +28,9 @@ describe Board do
   describe "#mark" do
     it "marks spot with mark" do
       board = Board.new
-      board.mark("0", "X")
+      board.mark("1", "X")
 
-      expect(board.grid).to eql ["X", "1", "2", "3", "4", "5", "6", "7", "8"]
+      expect(board.grid).to eql ["X", "2", "3", "4", "5", "6", "7", "8", "9"]
     end
 
     it "raises an error if move is illegal" do

@@ -5,25 +5,25 @@ describe Computer do
   describe "#get_spot" do
     it "plays for the win" do
       computer = Computer.new(mark: "X")
-      grid = ["X", "X", "2",
-              "O", "O", "5",
-              "6", "7", "8"]
+      grid = ["X", "X", "3",
+              "O", "O", "6",
+              "7", "8", "9"]
       board = Board.new(grid: grid)
 
       spot = computer.get_spot(board)
 
-      expect(spot).to eql "2"
+      expect(spot).to eql "3"
     end
 
     it "blocks opponent from winning on his next move" do
       computer = Computer.new(mark: "X")
       grid = ["X", "O", "X",
-              "O", "O", "5",
-              "6", "7", "8"]
+              "O", "O", "6",
+              "7", "8", "9"]
       board = Board.new(grid: grid)
       spot = computer.get_spot(board)
 
-      expect(spot).to eql "5"
+      expect(spot).to eql "6"
     end
   end
 
