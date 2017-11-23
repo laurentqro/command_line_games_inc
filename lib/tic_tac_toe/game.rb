@@ -11,7 +11,7 @@ class Game
     board.win? || board.tie?
   end
 
-  def next_player
-    current_player == player_1 ? @current_player = player_2 : @current_player = player_1
+  def current_player
+    board.current_player
   end
 end

@@ -45,6 +45,10 @@ class Board
     end
   end
 
+  def current_player
+    grid.grep(/X|O/).count.even? ? "X" : "O"
+  end
+
   private
 
   def winning_combos

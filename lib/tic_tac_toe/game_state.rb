@@ -9,7 +9,7 @@ class GameState
 
   def score
     return 0 if board.tie?
-    return 1 if board.winner_is?(max_player_mark)
+    return 1 if board.winner == max_player_mark
     return -1
   end
 
