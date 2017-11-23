@@ -15,13 +15,6 @@ module Cli
     def announce_setup(session)
       puts "#{session.player_1} plays with #{session.player_1.mark}."
       puts "#{session.player_2} plays with #{session.player_2.mark}."
-      puts "#{session.first_player} will play first."
-    end
-
-    def pick_first_player
-      puts "Who will play first?"
-      puts "1. Player 1"
-      puts "2. Player 2"
     end
 
     def announce_move(player, spot)

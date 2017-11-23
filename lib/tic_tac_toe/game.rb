@@ -5,7 +5,6 @@ class Game
     @board = board
     @player_1 = session.player_1
     @player_2 = session.player_2
-    @current_player = session.first_player
   end
 
   def is_over?

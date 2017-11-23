@@ -23,17 +23,10 @@ describe Cli::Display do
     it "gives user a recap of the game setup" do
       player_1 = Human.new(number: 1, mark: "X")
       player_2 = Human.new(number: 2, mark: "O")
-      session = Cli::Session.new(player_1: player_1, player_2: player_2, first_player: player_1)
+      session = Cli::Session.new(player_1: player_1, player_2: player_2)
 
-      expected_message = "Player 1 plays with X.\nPlayer 2 plays with O.\nPlayer 1 will play first.\n"
+      expected_message = "Player 1 plays with X.\nPlayer 2 plays with O.\n"
       expect { described_class.new.announce_setup(session) }.to output(expected_message).to_stdout
-    end
-  end
-
-  describe "#pick_first_player" do
-    it "prompts user to choose which player will play first" do
-      expected_message = "Who will play first?\n1. Player 1\n2. Player 2\n"
-      expect { described_class.new.pick_first_player }.to output(expected_message).to_stdout
     end
   end
 
