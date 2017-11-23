@@ -37,9 +37,11 @@ class Board
     end
   end
 
-  def winner_is?(mark)
-    winning_combos.any? do |combo|
-      combo.all? { |spot| spot == mark }
+  def winner
+    ["X", "O"].find do |mark|
+      winning_combos.any? do |combo|
+        combo.all? { |spot| spot == mark }
+      end
     end
   end
 

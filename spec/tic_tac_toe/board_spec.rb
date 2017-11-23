@@ -45,12 +45,12 @@ describe Board do
     end
   end
 
-  describe "#winner_is?" do
-    it "returns true if the mark is the winner" do
+  describe "#winner" do
+    it "returns the winning mark" do
       grid = ["X", "X", "X", 4, "O", 6 , "O", 8, 9]
       board = Board.new(grid: grid)
 
-      expect(board.winner_is?("X")).to eql true
+      expect(board.winner).to eql "X"
     end
   end
 end
