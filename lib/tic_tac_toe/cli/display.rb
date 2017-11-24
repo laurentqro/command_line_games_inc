@@ -12,6 +12,10 @@ module Cli
       puts "Enter [1-9]:"
     end
 
+    def invalid_move(spot)
+      puts "#{spot} is an invalid move. Please enter a spot between 1-9 that is available on the board"
+    end
+
     def announce_player_turn(player)
       puts "#{player}'s turn to play."
     end

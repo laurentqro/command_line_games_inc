@@ -37,6 +37,10 @@ class Board
     end
   end
 
+  def valid_move?(spot)
+    available_spots.include?(spot)
+  end
+
   private
 
   def grid_full?

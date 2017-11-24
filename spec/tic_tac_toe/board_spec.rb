@@ -53,4 +53,13 @@ describe Board do
       expect(board.winner).to eql "X"
     end
   end
+
+  describe "#valid_move?" do
+    it "determines if a given spot is a valid move" do
+      grid = ["X", "X", "X", 4, "O", 6 , "O", 8, 9]
+      board = Board.new(grid: grid)
+
+      expect(board.valid_move?("1")).to eql false
+    end
+  end
 end

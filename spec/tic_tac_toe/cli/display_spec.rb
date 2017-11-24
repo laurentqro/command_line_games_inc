@@ -24,6 +24,13 @@ describe Cli::Display do
     end
   end
 
+  describe "#invalid_move" do
+    it "warns the player of his invalid move" do
+      expected_message = "1 is an invalid move. Please enter a spot between 1-9 that is available on the board\n"
+      expect { described_class.new.invalid_move("1") }.to output(expected_message).to_stdout
+    end
+  end
+
   describe "#announce_win" do
     it "announces the winner of the game" do
       expect { described_class.new.announce_win("X") }.to output("X wins!\n").to_stdout
