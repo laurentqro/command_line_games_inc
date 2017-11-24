@@ -19,8 +19,8 @@ class Computer
     next_player_mark = (game_state.current_player_mark == "X" ? "O" : "X")
 
     game_state.board.available_spots.each do |spot|
-      next_board = Board.new(grid: game_state.board.grid.dup)
-      next_board.mark(spot, game_state.current_player_mark)
+      new_board = Board.new(grid: game_state.board.grid.dup)
+      next_board = new_board.mark(spot, game_state.current_player_mark)
       next_game_state = GameState.new(board: next_board, current_player_mark: next_player_mark, max_player_mark: mark)
       spot_scores[spot] = minimax(game_state: next_game_state, depth: depth +=1, spot_scores: {})
     end
