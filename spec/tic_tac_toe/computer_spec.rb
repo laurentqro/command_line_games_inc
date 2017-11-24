@@ -1,4 +1,5 @@
 require "tic_tac_toe/computer"
+require "tic_tac_toe/board"
 
 describe Computer do
   describe "#pick_move" do
@@ -15,10 +16,10 @@ describe Computer do
     end
 
     it "blocks opponent from winning on his next move" do
-      computer = Computer.new(mark: "X")
+      computer = Computer.new(mark: "O")
       grid = ["X", "O", "X",
-              "O", "O", "6",
-              "7", "8", "9"]
+              "4", "O", "6",
+              "O", "X", "X"]
       board = Board.new(grid: grid)
       move = computer.pick_move(board)
 

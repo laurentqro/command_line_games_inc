@@ -17,8 +17,19 @@ describe Board do
   end
 
   describe "#tie?" do
-    it "identifies tie" do
-      grid = ["O", "X", "O", "X", "O", "X", "O", "X", "O"]
+    it "identifies a win as not being a tie" do
+      grid = ["O", "X", "O",
+              "X", "O", "X",
+              "O", "X", "O"]
+      board = Board.new(grid: grid)
+
+      expect(board.tie?).to eql false
+    end
+
+    it "identifies a tie" do
+      grid = ["X", "O", "X",
+              "X", "O", "O",
+              "O", "X", "X"]
       board = Board.new(grid: grid)
 
       expect(board.tie?).to eql true

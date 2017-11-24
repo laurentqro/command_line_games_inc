@@ -21,7 +21,7 @@ class Board
   end
 
   def tie?
-    grid.all? { |spot| spot == "X" || spot == "O" }
+    !win? && grid_full?
   end
 
   def mark(move, mark)
@@ -38,6 +38,10 @@ class Board
   end
 
   private
+
+  def grid_full?
+    grid.all? { |spot| spot == "X" || spot == "O" }
+  end
 
   def winning_combos
     rows + columns + diagonals
