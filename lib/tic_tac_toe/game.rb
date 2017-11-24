@@ -61,9 +61,11 @@ class Game
   end
 
   def valid_move
-    spot = current_player.pick_move(board)
-    return spot if board.valid_move?(spot)
-    display.invalid_move(spot)
+    loop do
+      spot = current_player.pick_move(board)
+      return spot if board.valid_move?(spot)
+      display.invalid_move(spot)
+    end
   end
 
   def mark_board(move)
