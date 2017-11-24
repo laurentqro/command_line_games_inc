@@ -1,29 +1,13 @@
 require 'tic_tac_toe/game_state'
 
 class Computer
-  attr_accessor :mark
-  attr_reader :number
+  attr_reader :mark
 
-  def initialize(number: nil, mark: nil)
-    @number = number
+  def initialize(mark: nil)
     @mark = mark
   end
 
-  def to_s
-    "Player #{number}"
-  end
-
-  def play(board)
-    spot = get_spot(board)
-    board.mark(spot, mark)
-    spot
-  end
-
-  def prompt_play
-    # not implemented
-  end
-
-  def get_spot(board)
+  def pick_move(board)
     minimax(game_state: GameState.new(board: board, current_player_mark: mark, max_player_mark: mark))
   end
 

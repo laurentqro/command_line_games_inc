@@ -1,8 +1,7 @@
 require "tic_tac_toe/computer"
-require "tic_tac_toe/cli/game"
 
 describe Computer do
-  describe "#get_spot" do
+  describe "#pick_move" do
     it "plays for the win" do
       computer = Computer.new(mark: "X")
       grid = ["X", "X", "3",
@@ -10,9 +9,9 @@ describe Computer do
               "7", "8", "9"]
       board = Board.new(grid: grid)
 
-      spot = computer.get_spot(board)
+      move = computer.pick_move(board)
 
-      expect(spot).to eql "3"
+      expect(move).to eql "3"
     end
 
     it "blocks opponent from winning on his next move" do
@@ -21,15 +20,9 @@ describe Computer do
               "O", "O", "6",
               "7", "8", "9"]
       board = Board.new(grid: grid)
-      spot = computer.get_spot(board)
+      move = computer.pick_move(board)
 
-      expect(spot).to eql "6"
-    end
-  end
-
-  describe "#to_s" do
-    it "outputs player name" do
-      expect(Computer.new(number: 1).to_s).to eq "Player 1"
+      expect(move).to eql "6"
     end
   end
 end

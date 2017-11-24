@@ -32,17 +32,6 @@ describe Board do
 
       expect(board.grid).to eql ["X", "2", "3", "4", "5", "6", "7", "8", "9"]
     end
-
-    it "raises an error if move is illegal" do
-      grid = ["X", "1", "2", "3", "4", "5", "6", "7", "8"]
-      board = Board.new(grid: grid)
-
-      expect { board.mark("0", "X") }.to raise_error(IllegalMoveError)
-    end
-
-    it "raises an error if user input is invalid" do
-      expect { Board.new.mark("gibberish", "O") }.to raise_error(InvalidInputError)
-    end
   end
 
   describe "#winner" do
@@ -51,18 +40,6 @@ describe Board do
       board = Board.new(grid: grid)
 
       expect(board.winner).to eql "X"
-    end
-  end
-
-  describe "#current_player" do
-    it "returns current player" do
-      grid = ["X", "2", "3", "4", "5", "6", "7", "8", "9"]
-      board = Board.new(grid: grid)
-      expect(board.current_player).to eql "O"
-
-      grid = ["X", "O", "3", "4", "5", "6", "7", "8", "9"]
-      board = Board.new(grid: grid)
-      expect(board.current_player).to eql "X"
     end
   end
 end

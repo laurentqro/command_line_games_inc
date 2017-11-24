@@ -4,33 +4,20 @@ module Cli
       puts " #{grid[0]} | #{grid[1]} | #{grid[2]} \n===+===+===\n #{grid[3]} | #{grid[4]} | #{grid[5]} \n===+===+===\n #{grid[6]} | #{grid[7]} | #{grid[8]}"
     end
 
-    def pick_player(number)
-      puts "Player #{number} Human (1) or CPU (2)?"
-    end
-
-    def pick_mark_for(player)
-      puts "Choose mark for Player #{player.number}. X (1) or O (2)?"
-    end
-
-    def announce_setup(session)
-      puts "#{session.player_1} plays with #{session.player_1.mark}."
-      puts "#{session.player_2} plays with #{session.player_2.mark}."
-    end
-
-    def announce_move(player, spot)
-      puts "Player #{player.number} played #{player.mark} on spot #{spot}."
+    def pick_player_for_mark(mark)
+      puts "Choose player #{mark}: Human (1) or Computer (2)?"
     end
 
     def pick_move
-      puts "Enter [0-8]:"
+      puts "Enter [1-9]:"
     end
 
     def announce_player_turn(player)
-      puts "Player #{player.number}'s turn to play."
+      puts "#{player}'s turn to play."
     end
 
     def announce_win(player)
-      puts "Player #{player.number} wins!"
+      puts "#{player} wins!"
     end
 
     def announce_draw

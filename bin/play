@@ -1,15 +1,13 @@
 #!/usr/bin/env ruby
 
 $LOAD_PATH << 'lib'
-require 'tic_tac_toe/board'
-require 'tic_tac_toe/computer'
+require 'tic_tac_toe/config'
 require 'tic_tac_toe/game'
+require 'tic_tac_toe/board'
 require 'tic_tac_toe/human'
+require 'tic_tac_toe/computer'
 require 'tic_tac_toe/cli/display'
-require 'tic_tac_toe/cli/game'
-require 'tic_tac_toe/cli/session'
 
-session = Cli::Session.new.setup
-game = Game.new(session: session)
-Cli::Game.new(session: session, game: game).start
-
+display = Cli::Display.new
+config = Config.new(display: display).run
+Game.new(display: display, config: config).start

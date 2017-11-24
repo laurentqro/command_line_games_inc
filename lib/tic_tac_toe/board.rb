@@ -1,6 +1,3 @@
-require 'tic_tac_toe/errors/illegal_move_error'
-require 'tic_tac_toe/errors/invalid_input_error'
-
 class Board
   attr_accessor :grid
 
@@ -24,17 +21,12 @@ class Board
   end
 
   def tie?
-    grid.all? { |s| s == "X" || s == "O" }
+    grid.all? { |spot| spot == "X" || spot == "O" }
   end
 
-  def mark(spot, mark, is_reset: false)
-    if is_reset || available_spots.include?(spot)
-      grid[spot.to_i - 1] = mark
-    elsif invalid?(spot)
-      raise InvalidInputError.new(spot)
-    elsif !available_spots.include?(spot)
-      raise IllegalMoveError.new(spot)
-    end
+  def mark(move, mark)
+    grid[move.to_i - 1] = mark
+    self
   end
 
   def winner
@@ -43,10 +35,6 @@ class Board
         combo.all? { |spot| spot == mark }
       end
     end
-  end
-
-  def current_player
-    grid.grep(/X|O/).count.even? ? "X" : "O"
   end
 
   private
@@ -73,9 +61,5 @@ class Board
 
   def left_diagonal
     rows.reverse.each_with_index.map { |row, index| row[index] }.reverse
-  end
-
-  def invalid?(input)
-    input.length > 1 || input.to_i > 8
   end
 end

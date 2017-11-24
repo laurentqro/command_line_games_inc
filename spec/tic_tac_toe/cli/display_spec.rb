@@ -1,7 +1,6 @@
 require 'tic_tac_toe/cli/display'
 require 'tic_tac_toe/board'
 require 'tic_tac_toe/human'
-require 'tic_tac_toe/cli/session'
 
 describe Cli::Display do
   describe "#print_board" do
@@ -12,41 +11,22 @@ describe Cli::Display do
     end
   end
 
-  describe "#pick_player" do
+  describe "#pick_player_for_mark" do
     it "prompts user to pick player type (human or computer)" do
-      expected_message = "Player 1 Human (1) or CPU (2)?\n"
-      expect { described_class.new.pick_player(1) }.to output(expected_message).to_stdout
-    end
-  end
-
-  describe "#announce_setup" do
-    it "gives user a recap of the game setup" do
-      player_1 = Human.new(number: 1, mark: "X")
-      player_2 = Human.new(number: 2, mark: "O")
-      session = Cli::Session.new(player_1: player_1, player_2: player_2)
-
-      expected_message = "Player 1 plays with X.\nPlayer 2 plays with O.\n"
-      expect { described_class.new.announce_setup(session) }.to output(expected_message).to_stdout
-    end
-  end
-
-  describe "#announce_move" do
-    it "announces the current player's move" do
-      player = Human.new(number: 1, mark: "X")
-      expect { described_class.new.announce_move(player, 0) }.to output( "Player 1 played X on spot 0.\n").to_stdout
+      expected_message = "Choose player X: Human (1) or Computer (2)?\n"
+      expect { described_class.new.pick_player_for_mark("X") }.to output(expected_message).to_stdout
     end
   end
 
   describe "#pick_move" do
     it "prompts the user to pick a spot on the board" do
-      expect { described_class.new.pick_move }.to output("Enter [0-8]:\n").to_stdout
+      expect { described_class.new.pick_move }.to output("Enter [1-9]:\n").to_stdout
     end
   end
 
   describe "#announce_win" do
     it "announces the winner of the game" do
-      winner = Human.new(number: 1)
-      expect { described_class.new.announce_win(winner) }.to output("Player 1 wins!\n").to_stdout
+      expect { described_class.new.announce_win("X") }.to output("X wins!\n").to_stdout
     end
   end
 
@@ -58,8 +38,7 @@ describe Cli::Display do
 
   describe "#announce_player_turn" do
     it "informs the user of the current player" do
-      player = Human.new(number: 1)
-      expect { described_class.new.announce_player_turn(player) }.to output("Player 1's turn to play.\n").to_stdout
+      expect { described_class.new.announce_player_turn("X") }.to output("X's turn to play.\n").to_stdout
     end
   end
 
@@ -71,7 +50,7 @@ describe Cli::Display do
   end
 
   describe "#play_again" do
-    it "prompts the user to play again or exit the session" do
+    it "prompts the user to play again or exit" do
       expect { described_class.new.play_again }.to output("Play again? Yes (1) or No (2)\n").to_stdout
     end
   end
