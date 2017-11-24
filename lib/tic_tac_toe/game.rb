@@ -26,6 +26,10 @@ class Game
   attr_reader :player_x, :player_o, :display, :current_player
   attr_writer :board
 
+  def game_over?
+    board.win? || board.tie?
+  end
+
   def play
     display.announce_player_turn(current_player.mark)
     display.pick_move
@@ -33,6 +37,19 @@ class Game
     clear_screen
     tick_over
     print_board
+  end
+
+  def end_game
+    notify_game_over
+    play_again
+  end
+
+  def clear_screen
+    display.clear_screen
+  end
+
+  def print_board
+    display.print_board(board.grid)
   end
 
   def tick_over
@@ -47,25 +64,8 @@ class Game
     current_player.pick_move(board)
   end
 
-  def end_game
-    notify_game_over
-    play_again
-  end
-
   def mark_board(move)
     self.board = board.mark(move, current_player.mark)
-  end
-
-  def game_over?
-    board.win? || board.tie?
-  end
-
-  def clear_screen
-    display.clear_screen
-  end
-
-  def print_board
-    display.print_board(board.grid)
   end
 
   def notify_game_over
