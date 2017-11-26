@@ -10,4 +10,4 @@ require 'tic_tac_toe/cli/display'
 
 display = Cli::Display.new
 config = Config.new(display: display).run
-Game.new(display: display, config: config).start
+Game.new(config: config).start

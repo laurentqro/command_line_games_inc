@@ -1,11 +1,9 @@
-require 'tic_tac_toe/board'
-
 class Game
   attr_reader :board
 
-  def initialize(board: Board.new, display:, config:)
+  def initialize(board: Board.new, config:)
     @board = board
-    @display = display
+    @display = config.display
     @player_x = config.player_x
     @player_o = config.player_o
     @current_player = config.player_x
