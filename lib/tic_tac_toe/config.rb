@@ -1,7 +1,8 @@
 class Config
   attr_accessor :player_x, :player_o
+  attr_reader :display
 
-  def initialize(display:)
+  def initialize(display: , player_x: nil, player_o: nil)
     @display = display
     @player_x = player_x
     @player_o = player_o
@@ -15,8 +16,6 @@ class Config
   end
 
   private
-
-  attr_reader :display
 
   def display_title
     display.title

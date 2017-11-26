@@ -13,20 +13,20 @@ class Game
     clear_screen
     print_board
 
-    until game_over?
+    until over?
       play
     end
     end_game
+  end
+
+  def over?
+    board.win? || board.tie?
   end
 
   private
 
   attr_reader :player_x, :player_o, :display, :current_player
   attr_writer :board
-
-  def game_over?
-    board.win? || board.tie?
-  end
 
   def play
     display.announce_player_turn(current_player.mark)
