@@ -17,9 +17,7 @@ describe Game do
     grid = ["X", "X", "X",
             "3", "4", "5",
             "6", "7", "8"]
-
     board = Board.new(grid: grid)
-
     game = Game.new(board: board, config: config)
 
     expect(game).to be_over
@@ -31,15 +29,25 @@ describe Game do
       player_o: TestPlayer.new(mark: "O"),
       display: display
     )
-
     grid = ["O", "X", "O",
             "X", "O", "X",
             "O", "X", "O"]
-
     board = Board.new(grid: grid)
-
     game = Game.new(board: board, config: config)
 
     expect(game).to be_over
+  end
+
+  it "announces player turns" do
+    config = Config.new(
+      player_x: TestPlayer.new(mark: "X", moves: ["1"]),
+      player_o: TestPlayer.new(mark: "O"),
+      display: display
+    )
+    game = Game.new(config: config)
+
+    expect(display).to receive(:announce_player_turn)
+
+    game.play_single_turn
   end
 end

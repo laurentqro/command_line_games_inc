@@ -12,6 +12,6 @@ class TestPlayer
   end
 
   def pick_move(board)
-    moves.unshift
+    moves.shift
   end
 end

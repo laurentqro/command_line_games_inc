@@ -14,9 +14,18 @@ class Game
     print_board
 
     until over?
-      play
+      play_single_turn
     end
     end_game
+  end
+
+  def play_single_turn
+    display.announce_player_turn(current_player.mark)
+    display.pick_move
+    mark_board(valid_move)
+    clear_screen
+    tick_over
+    print_board
   end
 
   def over?
@@ -27,15 +36,6 @@ class Game
 
   attr_reader :player_x, :player_o, :display, :current_player
   attr_writer :board
-
-  def play
-    display.announce_player_turn(current_player.mark)
-    display.pick_move
-    mark_board(valid_move)
-    clear_screen
-    tick_over
-    print_board
-  end
 
   def end_game
     notify_game_over
