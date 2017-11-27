@@ -50,4 +50,17 @@ describe Game do
 
     game.play_single_turn
   end
+
+  it "prompts player to pick move" do
+    config = Config.new(
+      player_x: TestPlayer.new(mark: "X", moves: ["1"]),
+      player_o: TestPlayer.new(mark: "O"),
+      display: display
+    )
+    game = Game.new(config: config)
+
+    expect(display).to receive(:pick_move)
+
+    game.play_single_turn
+  end
 end
