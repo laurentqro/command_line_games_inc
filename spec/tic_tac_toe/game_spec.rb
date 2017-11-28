@@ -96,4 +96,21 @@ describe Game do
 
     game.start
   end
+
+  it "notifies players of draw" do
+    config = Config.new(
+      player_x: TestPlayer.new(mark: "X", moves: ["2"]),
+      player_o: TestPlayer.new(mark: "O"),
+      display: display
+    )
+    grid = ["O", "2", "O",
+            "X", "O", "X",
+            "O", "X", "O"]
+    board = Board.new(grid: grid)
+    game = Game.new(board: board, config: config)
+
+    expect(display).to receive(:announce_draw)
+
+    game.start
+  end
 end
