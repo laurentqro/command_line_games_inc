@@ -63,4 +63,20 @@ describe Game do
 
     game.play_single_turn
   end
+
+  it "changes current player" do
+    config = Config.new(
+      player_x: TestPlayer.new(mark: "X", moves: ["1"]),
+      player_o: TestPlayer.new(mark: "O", moves: ["2"]),
+      display: display
+    )
+    game = Game.new(config: config)
+
+    2.times do
+      game.play_single_turn
+    end
+
+    expect(game.board.grid.grep("X").count).to eql 1
+    expect(game.board.grid.grep("O").count).to eql 1
+  end
 end
