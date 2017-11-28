@@ -79,4 +79,21 @@ describe Game do
     expect(game.board.grid.grep("X").count).to eql 1
     expect(game.board.grid.grep("O").count).to eql 1
   end
+
+  it "notifies players of win" do
+    config = Config.new(
+      player_x: TestPlayer.new(mark: "X", moves: ["3"]),
+      player_o: TestPlayer.new(mark: "O"),
+      display: display
+    )
+    grid = ["X", "X", "3",
+            "O", "O", "5",
+            "6", "7", "8"]
+    board = Board.new(grid: grid)
+    game = Game.new(board: board, config: config)
+
+    expect(display).to receive(:announce_win)
+
+    game.start
+  end
 end
