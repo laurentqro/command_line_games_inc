@@ -120,4 +120,22 @@ describe Game do
 
     game.play_single_turn
   end
+
+  it "resets the game with a pristine board" do
+    config = Config.new(
+      player_x: TestPlayer.new(mark: "X"),
+      player_o: TestPlayer.new(mark: "O"),
+      display: display
+    )
+
+    grid = ["X", "X", "X",
+            "3", "4", "5",
+            "6", "7", "8"]
+    board = Board.new(grid: grid)
+    game = Game.new(board: board, config: config)
+
+    game.reset
+
+    expect(game.board.grid).to eql(Board.new.grid)
+  end
 end

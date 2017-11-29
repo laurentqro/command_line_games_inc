@@ -19,6 +19,10 @@ class Game
     end_game
   end
 
+  def reset
+    self.board = Board.new
+  end
+
   def play_single_turn
     display.announce_player_turn(current_player.mark)
     display.pick_move
