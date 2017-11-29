@@ -106,4 +106,18 @@ describe Game do
 
     game.start
   end
+
+  it "notifies player of invalid move until a valid move is picked" do
+    config = Config.new(
+      player_x: TestPlayer.new(mark: "X", moves: ["foo", "bar", "1"]),
+      player_o: TestPlayer.new(mark: "O"),
+      display: display
+    )
+
+    game = Game.new(config: config)
+
+    expect(display).to receive(:invalid_move)
+
+    game.play_single_turn
+  end
 end
