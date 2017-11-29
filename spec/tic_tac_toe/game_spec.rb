@@ -82,15 +82,11 @@ describe Game do
 
   it "notifies players of win" do
     config = Config.new(
-      player_x: TestPlayer.new(mark: "X", moves: ["3"]),
-      player_o: TestPlayer.new(mark: "O"),
+      player_x: TestPlayer.new(mark: "X", moves: ["1", "2", "3"]),
+      player_o: TestPlayer.new(mark: "O", moves: ["4", "5"]),
       display: display
     )
-    grid = ["X", "X", "3",
-            "O", "O", "5",
-            "6", "7", "8"]
-    board = Board.new(grid: grid)
-    game = Game.new(board: board, config: config)
+    game = Game.new(config: config)
 
     expect(display).to receive(:announce_win)
 
@@ -99,15 +95,12 @@ describe Game do
 
   it "notifies players of draw" do
     config = Config.new(
-      player_x: TestPlayer.new(mark: "X", moves: ["2"]),
-      player_o: TestPlayer.new(mark: "O"),
+      player_x: TestPlayer.new(mark: "X", moves: ["1", "3", "5", "6", "8"]),
+      player_o: TestPlayer.new(mark: "O", moves: ["2", "4", "7", "9"]),
       display: display
     )
-    grid = ["O", "2", "O",
-            "X", "O", "X",
-            "O", "X", "O"]
-    board = Board.new(grid: grid)
-    game = Game.new(board: board, config: config)
+
+    game = Game.new(config: config)
 
     expect(display).to receive(:announce_draw)
 

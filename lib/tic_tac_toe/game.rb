@@ -38,8 +38,13 @@ class Game
   attr_writer :board
 
   def end_game
-    notify_game_over
-    play_again
+    if board.win?
+      display.announce_win(board.winner)
+    else
+      display.announce_draw
+    end
+    display.goodbye
+    exit
   end
 
   def clear_screen
@@ -68,26 +73,5 @@ class Game
 
   def mark_board(move)
     self.board = board.mark(move, current_player.mark)
-  end
-
-  def notify_game_over
-    if board.win?
-      display.announce_win(board.winner)
-    else
-      display.announce_draw
-    end
-  end
-
-  def play_again
-    display.play_again
-    choice = display.get_input
-
-    if choice == "1"
-      self.board = Board.new
-      start
-    else
-      display.goodbye
-      exit
-    end
   end
 end
