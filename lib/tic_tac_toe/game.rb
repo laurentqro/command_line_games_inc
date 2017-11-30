@@ -1,5 +1,5 @@
 class Game
-  attr_reader :board
+  attr_reader :board, :display
 
   def initialize(board: Board.new, config:)
     @board = board
@@ -38,7 +38,7 @@ class Game
 
   private
 
-  attr_reader :player_x, :player_o, :display, :current_player
+  attr_reader :player_x, :player_o, :current_player
   attr_writer :board
 
   def end_game
@@ -47,8 +47,6 @@ class Game
     else
       display.announce_draw
     end
-    display.goodbye
-    exit
   end
 
   def clear_screen
